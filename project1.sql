@@ -61,13 +61,20 @@ select cust_sup_distances.*,
 row_number()
 over(partition by cust_sup_distances.first_name, cust_sup_distances.last_name order by cust_sup_distances.distances) as min_distance
 from cust_sup_distances
-)
+),
 
+final_table as 
+(
 select window_cust_sup.customer_id,
+window_cust_sup.first_name,
 window_cust_sup.last_name,
 window_cust_sup.email,
 window_cust_sup.supplier_id,
 window_cust_sup.supplier_name,
-cast(window_cust_sup.distances as numeric)/1000 as distance
+cast(window_cust_sup.distances as numeric)/1000 as distance_in_km
 from window_cust_sup
-where window_cust_sup.min_distance = 1;
+where window_cust_sup.min_distance = 1
+)
+
+select * from final_table
+order by final_table.last_name, final_table.first_name;
