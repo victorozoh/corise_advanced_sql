@@ -44,7 +44,7 @@ final_table as
     select 
         date(session_metrics.session_start) as day,
         count(session_metrics.session_id) as total_sessions,
-        round(avg(session_metrics.session_length_seconds),1) as avg_session_length_seconds,
+        round(avg(session_metrics.session_length_seconds),1) as avg_session_length,
         avg(session_metrics.num_search_events / session_metrics.num_recipe_views) as avg_searches_per_recipe_view,
         max(most_viewed_recipe.recipe_id) as recipe_most_viewed
     from session_metrics
