@@ -31,11 +31,11 @@ most_viewed_recipe as
     select
         date(event_timestamp) as day,
         recipe_id,
-        count(*) as nb_viewed
+        count(*) as num_of_views
     from events
     where recipe_id is not null
     group by day, recipe_id
-    qualify row_number() over (partition by day order by nb_viewed desc) = 1
+    qualify row_number() over (partition by day order by num_of_views desc) = 1
 ),
 
 -- final result
