@@ -34,7 +34,7 @@ most_viewed_recipe as
         count(*) as num_of_views
     from events
     where recipe_id is not null
-    group by day, recipe_id
+    group by 1,2
     qualify row_number() over (partition by day order by num_of_views desc) = 1
 ),
 
